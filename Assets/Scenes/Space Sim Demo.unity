@@ -5220,6 +5220,8 @@ GameObject:
   - component: {fileID: 1590879580}
   - component: {fileID: 1590879581}
   - component: {fileID: 1590879582}
+  - component: {fileID: 1590879583}
+  - component: {fileID: 1590879584}
   m_Layer: 0
   m_Name: Spacecraft
   m_TagString: Untagged
@@ -5278,3 +5280,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1590879583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590879579}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d2555bc15ca144994924eba95b9291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _refProjectile: {fileID: 2290039935081745048, guid: 68bc5d6bb1ba71b45acb8daf90f300e0, type: 3}
+  _projectileSpeed: 30
+  _refGunPivotL: {fileID: 94287019}
+  _refGunPivotR: {fileID: 170610999}
+--- !u!114 &1590879584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590879579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45a849ffb341dd47be66fca1676b817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacecraftController: {fileID: 0}
