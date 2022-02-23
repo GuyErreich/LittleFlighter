@@ -9,11 +9,12 @@ public class CharacterInputManager : MonoBehaviour {
     [SerializeField] private Camera cam;
 
     private SpacecraftController spacecraftController;
+    private ProjectileLauncher projectileLauncher;
 
     private PlayerControls controls;
     private PlayerControls.CharacterActions characterInput;
 
-    private bool input_W;
+    private bool input_W, input_LeftMouse;
     private Vector2 mouseLook;
 
     private void Awake() 
@@ -22,17 +23,20 @@ public class CharacterInputManager : MonoBehaviour {
                             CursorMode.Auto);
 
         spacecraftController =  this.GetComponent<SpacecraftController>();
+        projectileLauncher =  this.GetComponent<ProjectileLauncher>();
 
         this.controls = new PlayerControls();
         this.characterInput = this.controls.Character;
         
         this.characterInput.Movement.performed += ctx => this.input_W = ctx.ReadValueAsButton();
         this.characterInput.Look.performed += ctx => calculateMouseLook(ctx.ReadValue<Vector2>());
+        this.characterInput.Attack.performed += ctx => this.input_LeftMouse = ctx.ReadValueAsButton();
     }
 
     private void Update() 
     {
         this.spacecraftController.ReceiveInput(this.input_W, this.mouseLook);
+        this.projectileLauncher.ReceiveInput(this.input_LeftMouse);
     }
 
     private void calculateMouseLook(Vector2 mousePos)
