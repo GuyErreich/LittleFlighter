@@ -12,7 +12,8 @@ public class CharacterInputManager : MonoBehaviour {
     private bool input_W;
     private Vector2 mouseLook;
 
-    private void Awake() {
+    private void Awake() 
+    {
         spacecraftController =  this.GetComponent<SpacecraftController>();
 
         this.controls = new PlayerControls();
@@ -22,21 +23,40 @@ public class CharacterInputManager : MonoBehaviour {
         this.characterInput.Look.performed += ctx => calculateMouseLook(ctx.ReadValue<Vector2>());
     }
 
-    private void Update() {
+    private void Update() 
+    {
         this.spacecraftController.ReceiveInput(this.input_W, this.mouseLook);
     }
 
-    private void calculateMouseLook(Vector2 mouseLook)
+    private void calculateMouseLook(Vector2 mousePos)
     {
-        mouseLook.x -= (Screen.width/2);
-        mouseLook.y -= Screen.height/2;  
+        // mouseLook.x -= (Screen.width/2);
+        // mouseLook.y -= Screen.height/2;  
 
-        this.mouseLook = mouseLook.normalized;
+        // this.mouseLook = mouseLook;
 
-        this.mouseLook.x *= this.looksensitivityX;
-        this.mouseLook.y *= this.looksensitivityY;
+        // print(this.mouseLook.magnitude);
 
-        this.mouseLook.y = -(this.mouseLook.y);
+        // this.mouseLook.x *= this.looksensitivityX;
+        // this.mouseLook.y *= this.looksensitivityY;
+
+        // this.mouseLook.y = -(this.mouseLook.y);
+
+        Vector2 centerPos = new Vector2(Screen.width/2, Screen.height/2);
+
+        Vector2 mouseFromCenter = mousePos - centerPos;
+
+        float clampDistance = Screen.width * 0.05f;
+
+        print(mouseFromCenter.magnitude);
+
+        if (mouseFromCenter.magnitude < clampDistance)
+            mouseFromCenter = Vector2.zero;
+
+        this.mouseLook.x = mouseFromCenter.x;
+        this.mouseLook.y = -mouseFromCenter.y;
+
+        this.mouseLook = this.mouseLook.normalized;
     }
 
     private void OnEnable() {

@@ -72,6 +72,16 @@ public class SpacecraftController : MonoBehaviour
         this.rb.AddTorque(verticalTorque + horizontalTorque);
     }
 
+    // TODO: think about this shit
+    // private void TryApplyTorque()
+    // {        
+    //     float verticalAxis = this.mouseLook.y;
+    //     float horizonalAxis = this.mouseLook.x;
+
+    //     this.transform.Rotate(this.transform.right, verticalAxis, Space.World);
+    //     this.transform.Rotate(this.transform.up, horizonalAxis, Space.World);
+    // }
+
     // TODO: added boost option
     public void ReceiveInput(bool isTrust, Vector2 mouseLook) {
         this.isTrust = isTrust;
