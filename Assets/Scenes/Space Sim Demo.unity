@@ -5602,6 +5602,20 @@ MonoBehaviour:
   deadzone: 0.015
   cam: {fileID: 963194229}
 --- !u!1 &1964052635
+--- !u!114 &1590879585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590879579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ef0d25d35e8714686016d8b73786af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxEffect: {fileID: 1813169008}
+--- !u!1 &1813169006
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

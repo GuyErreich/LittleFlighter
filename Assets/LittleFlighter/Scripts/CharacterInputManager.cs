@@ -10,11 +10,12 @@ public class CharacterInputManager : MonoBehaviour {
 
     private SpacecraftController spacecraftController;
     private ProjectileLauncher projectileLauncher;
+    private SheildAbility sheildAbility;
 
     private PlayerControls controls;
     private PlayerControls.CharacterActions characterInput;
 
-    private bool input_W, input_LeftMouse;
+    private bool input_W, input_LeftMouse, input_Space;
     private Vector2 mouseLook;
 
     private void Awake() 
@@ -24,6 +25,7 @@ public class CharacterInputManager : MonoBehaviour {
 
         spacecraftController =  this.GetComponent<SpacecraftController>();
         projectileLauncher =  this.GetComponent<ProjectileLauncher>();
+        sheildAbility =  this.GetComponent<SheildAbility>();
 
         this.controls = new PlayerControls();
         this.characterInput = this.controls.Character;
@@ -31,12 +33,14 @@ public class CharacterInputManager : MonoBehaviour {
         this.characterInput.Movement.performed += ctx => this.input_W = ctx.ReadValueAsButton();
         this.characterInput.Look.performed += ctx => calculateMouseLook(ctx.ReadValue<Vector2>());
         this.characterInput.Attack.performed += ctx => this.input_LeftMouse = ctx.ReadValueAsButton();
+        this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
     }
 
     private void Update() 
     {
         this.spacecraftController.ReceiveInput(this.input_W, this.mouseLook);
         this.projectileLauncher.ReceiveInput(this.input_LeftMouse);
+        this.sheildAbility.ReceiveInput(this.input_Space);
     }
 
     private void calculateMouseLook(Vector2 mousePos)
