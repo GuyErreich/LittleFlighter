@@ -3,7 +3,11 @@ using UnityEngine;
 public class CharacterInputManager : MonoBehaviour {
 
     
+    [SerializeField] private Texture2D cursor;
     [SerializeField] [Range(1, 3)] private float looksensitivityY = 1, looksensitivityX = 1;
+    [SerializeField] private float deadzone = 0.05f;
+    [SerializeField] private Camera cam;
+
     private SpacecraftController spacecraftController;
 
     private PlayerControls controls;
@@ -14,6 +18,9 @@ public class CharacterInputManager : MonoBehaviour {
 
     private void Awake() 
     {
+        Cursor.SetCursor(this.cursor, new Vector2(this.cursor.width / 2, this.cursor.height / 2),
+                            CursorMode.Auto);
+
         spacecraftController =  this.GetComponent<SpacecraftController>();
 
         this.controls = new PlayerControls();
@@ -42,13 +49,14 @@ public class CharacterInputManager : MonoBehaviour {
 
         // this.mouseLook.y = -(this.mouseLook.y);
 
-        Vector2 centerPos = new Vector2(Screen.width/2, Screen.height/2);
+        Vector2 centerPos = new Vector2(this.cam.pixelWidth / 2, this.cam.pixelHeight / 2);
 
         Vector2 mouseFromCenter = mousePos - centerPos;
 
-        float clampDistance = Screen.width * 0.05f;
+        float clampDistance = this.cam.pixelWidth * deadzone;
 
         print(mouseFromCenter.magnitude);
+        print(clampDistance);
 
         if (mouseFromCenter.magnitude < clampDistance)
             mouseFromCenter = Vector2.zero;

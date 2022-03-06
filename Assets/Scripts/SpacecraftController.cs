@@ -53,34 +53,34 @@ public class SpacecraftController : MonoBehaviour
         this.rb.AddForce(this.transform.forward * maxSpeedDelta * this.forwardThrust, ForceMode.Acceleration);
     }
 
-    private void TryApplyTorque()
-    {
-        float verticalAxis;
-        float horizonalAxis;
+    // private void TryApplyTorque()
+    // {
+    //     float verticalAxis;
+    //     float horizonalAxis;
         
-        verticalAxis = this.mouseLook.y;
-        horizonalAxis = this.mouseLook.x;
+    //     verticalAxis = this.mouseLook.y;
+    //     horizonalAxis = this.mouseLook.x;
 
-        if (Mathf.Approximately(verticalAxis, 0f) && Mathf.Approximately(horizonalAxis, 0f))
-        {
-            return;
-        }
+    //     if (Mathf.Approximately(verticalAxis, 0f) && Mathf.Approximately(horizonalAxis, 0f))
+    //     {
+    //         return;
+    //     }
 
-        Vector3 verticalTorque = this.transform.right * this.verticalTorqueThrust * verticalAxis;
-        Vector3 horizontalTorque = this.transform.up * this.horizontalTorqueThrust * horizonalAxis;
+    //     Vector3 verticalTorque = this.transform.right * this.verticalTorqueThrust * verticalAxis;
+    //     Vector3 horizontalTorque = this.transform.up * this.horizontalTorqueThrust * horizonalAxis;
 
-        this.rb.AddTorque(verticalTorque + horizontalTorque);
-    }
+    //     this.rb.AddTorque(verticalTorque + horizontalTorque);
+    // }
 
     // TODO: think about this shit
-    // private void TryApplyTorque()
-    // {        
-    //     float verticalAxis = this.mouseLook.y;
-    //     float horizonalAxis = this.mouseLook.x;
+    private void TryApplyTorque()
+    {        
+        float verticalAxis = this.mouseLook.y;
+        float horizonalAxis = this.mouseLook.x;
 
-    //     this.transform.Rotate(this.transform.right, verticalAxis, Space.World);
-    //     this.transform.Rotate(this.transform.up, horizonalAxis, Space.World);
-    // }
+        this.transform.Rotate(this.transform.right, verticalAxis, Space.World);
+        this.transform.Rotate(this.transform.up, horizonalAxis, Space.World);
+    }
 
     // TODO: added boost option
     public void ReceiveInput(bool isTrust, Vector2 mouseLook) {
