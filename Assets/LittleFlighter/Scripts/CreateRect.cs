@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateCrosshair : MonoBehaviour
+public class CreateRect : MonoBehaviour
 {
     [SerializeField] private Texture2D crosshairTex;
     [SerializeField] private int crosshairSize = 45;
@@ -10,7 +10,7 @@ public class CreateCrosshair : MonoBehaviour
     Rect crosshairRect;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         // this.crosshairTex.Resize(2, 2);
         this.windowSize = new Vector2(Screen.width, Screen.height);
@@ -19,7 +19,7 @@ public class CreateCrosshair : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (this.windowSize.x != Screen.width || this.windowSize.y != Screen.height)
             CalculateRect();
