@@ -12,7 +12,6 @@ public class CreateRect : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        // this.crosshairTex.Resize(2, 2);
         this.windowSize = new Vector2(Screen.width, Screen.height);
 
         CalculateRect();
