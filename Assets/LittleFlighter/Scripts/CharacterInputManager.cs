@@ -45,34 +45,24 @@ public class CharacterInputManager : MonoBehaviour {
 
     private void calculateMouseLook(Vector2 mousePos)
     {
-        // mouseLook.x -= (Screen.width/2);
-        // mouseLook.y -= Screen.height/2;  
 
-        // this.mouseLook = mouseLook;
+        Vector2 centerOfScreen = new Vector2(this.cam.pixelWidth / 2f, this.cam.pixelHeight / 2f);
 
-        // print(this.mouseLook.magnitude);
+        Vector2 mouseFromCenter = mousePos / centerOfScreen; // Relative to the middle of the screen in percntage (normalization)
+        
+        mouseFromCenter = new Vector2(mouseFromCenter.x - 1f, mouseFromCenter.y - 1f); // Changes the middle of the screen to be (0,0)
 
-        // this.mouseLook.x *= this.looksensitivityX;
-        // this.mouseLook.y *= this.looksensitivityY;
+        if (Mathf.Abs(mouseFromCenter.x) < deadzone )
+            mouseFromCenter.x = 0;
 
-        // this.mouseLook.y = -(this.mouseLook.y);
-
-        Vector2 centerPos = new Vector2(this.cam.pixelWidth / 2, this.cam.pixelHeight / 2);
-
-        Vector2 mouseFromCenter = mousePos - centerPos;
-
-        float clampDistance = this.cam.pixelWidth * deadzone;
-
-        print(mouseFromCenter.magnitude);
-        print(clampDistance);
-
-        if (mouseFromCenter.magnitude < clampDistance)
-            mouseFromCenter = Vector2.zero;
+        if (Mathf.Abs(mouseFromCenter.y) < deadzone )
+            mouseFromCenter.y = 0;
 
         this.mouseLook.x = mouseFromCenter.x;
         this.mouseLook.y = -mouseFromCenter.y;
 
-        this.mouseLook = this.mouseLook.normalized;
+        this.mouseLook.x *= this.looksensitivityX;
+        this.mouseLook.y *= this.looksensitivityY;
     }
 
     private void OnEnable() {
