@@ -43,8 +43,6 @@ public class SpacecraftController : MonoBehaviour
 
         float maxSpeedDelta = (this.maxForwardSpeedSquare - this.rb.velocity.sqrMagnitude) / this.maxForwardSpeedSquare;
 
-        print(maxSpeedDelta);
-
         if (maxSpeedDelta <= 0f)
         {
             return;
