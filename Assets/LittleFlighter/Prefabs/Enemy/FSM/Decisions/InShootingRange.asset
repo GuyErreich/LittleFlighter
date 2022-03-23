@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dca0940d9518f6a40ae2ad2b6248c6f4, type: 3}
+  m_Script: {fileID: 11500000, guid: ceadee40a299d754da2a46311e9ee426, type: 3}
   m_Name: InShootingRange
   m_EditorClassIdentifier: 
