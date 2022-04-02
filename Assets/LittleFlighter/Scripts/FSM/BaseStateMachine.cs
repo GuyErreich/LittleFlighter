@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FSM
+namespace LittleFlighter.FSM
 {
     public class BaseStateMachine : MonoBehaviour
     {

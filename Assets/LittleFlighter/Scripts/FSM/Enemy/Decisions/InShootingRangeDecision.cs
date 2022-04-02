@@ -1,15 +1,16 @@
-using FSM;
 using UnityEngine;
+using LittleFlighter.Enemy;
 
-namespace FSM.Enemy.Decisions
+namespace LittleFlighter.FSM.Enemy.Decisions
 {
     [CreateAssetMenu(menuName = "FSM/Decisions/In Shooting Range")]
     public class InShootingRangeDecision : Decision
     {
         public override bool Decide(BaseStateMachine stateMachine)
         {
-            // TODO: Create decision
-            return true;
+            var enemy =  stateMachine.GetComponent<EnemyController>();
+
+            return enemy.IsInRange;
         }
     }
 }

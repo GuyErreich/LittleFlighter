@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FSM
+namespace LittleFlighter.FSM
 {
     [CreateAssetMenu(menuName = "FSM/State")]
     public sealed class State : BaseState

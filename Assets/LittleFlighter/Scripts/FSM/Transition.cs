@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FSM
+namespace LittleFlighter.FSM
 {
     [CreateAssetMenu(menuName = "FSM/Transition")]
     public sealed class Transition : ScriptableObject
