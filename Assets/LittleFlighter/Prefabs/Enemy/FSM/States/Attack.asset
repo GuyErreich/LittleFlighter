@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   Action:
-  - {fileID: 0}
-  Transitions: []
+  - {fileID: 11400000, guid: 3ef52f15b90d9594f8da2832b266466d, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: 469ddbd54cc92064f8997d21abbc59cd, type: 2}
