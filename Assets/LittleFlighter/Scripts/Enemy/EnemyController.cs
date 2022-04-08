@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DataObjects;
@@ -9,30 +11,38 @@ namespace LittleFlighter.Enemy
     {
         public static List<string> shootTypes;
         private bool isInRange = false;
-        private Transform target;
+        private Transform target, projectile;
         private Quaternion nextRotation;
+        private float cooldownDuration = 0f; 
 
 
 
         [Header("References")]
         [SerializeField] private GameObjectsStorage shootTypesRefs;
+        [SerializeField] private Transform refGunPivot;
+
+
+        [Header("Defense Settings")]
+        [SerializeField] int health = 100;
 
         
         [Header("Attack Settings")]
-
-        [SerializeField, ListToPopup(typeof(EnemyController), "shootTypes")] 
-        private string type;
+        [SerializeField, ListToPopup(typeof(EnemyController), "shootTypes")] private string type;
         [SerializeField] private float damage = 5f;
+        [SerializeField] private float projectileSpeed = 2f;
         [SerializeField] private float rateOfFire = 2f;
 
 
         [Header("Movement Settings")]
-
         [SerializeField] private float rotationSpeed = 3f;
+
+
 
         #region Getters and Setters
         public bool IsInRange { get {return this.isInRange; } }
         #endregion
+
+
 
         private void Awake()
         {
@@ -47,6 +57,29 @@ namespace LittleFlighter.Enemy
         public void AttackMode() 
         {
             this.FollowTarget();
+
+            this.Shoot();
+        }
+
+        private void Shoot()
+        {
+            if (this.cooldownDuration <= 0f)
+            {
+                int index = this.shootTypesRefs.Keys.IndexOf(this.type);
+                projectile = Instantiate(this.shootTypesRefs.Values[index]).transform;
+
+                projectile.gameObject.tag = "EnemyBullet";
+
+                projectile.transform.position = this.refGunPivot.transform.position;
+                projectile.transform.rotation = this.refGunPivot.transform.rotation;
+
+                Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();
+                projectileRbody.velocity = transform.forward * this.projectileSpeed;
+
+                this.cooldownDuration = rateOfFire;
+            }
+
+            this.cooldownDuration -= Time.deltaTime;
         }
 
         private void FollowTarget()
@@ -70,9 +103,11 @@ namespace LittleFlighter.Enemy
 
         private void OnTriggerEnter(Collider collider) 
         {
-            this.target = collider.gameObject.transform;
             if (collider.CompareTag("Player"))
+            {
+                this.target = collider.gameObject.transform;
                 this.isInRange = true;
+            }
         }
 
         private void OnTriggerExit(Collider collider) 
@@ -87,6 +122,5 @@ namespace LittleFlighter.Enemy
         }
 
         public void OnAfterDeserialize() {}
-
     }
 }
