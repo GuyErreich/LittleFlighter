@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class SpacecraftController : MonoBehaviour
 {
-    [SerializeField] private Camera MainCamera;
-    [SerializeField] private float forwardThrust = 300;
-    [SerializeField] private float maxForwardSpeed = 100;
-    [SerializeField] private float verticalTorqueThrust = 300;
-    [SerializeField] private float horizontalTorqueThrust = 300;
-    [SerializeField] private float maxAngularVelocity = 360;
-
-    private const string MOUSE_VERTICAL_AXIS_NAME = "Mouse Y";
-    private const string MOUSE_HORIZONTAL_AXIS_NAME = "Mouse X";
     private float maxForwardSpeedSquare;
-    private bool isTrust = false;
-    private Vector2 mouseLook;
+    private bool isTrust = false, isDash = false;
+    private Vector2 mouseLook, movement;
     private Rigidbody rb;
+
+
+
+    [Header("Defense Settings")]
+    [SerializeField] private int health;
+
+
+    [Header("Movement Settings")]
+    [SerializeField] private float forwardThrust = 300;
+    [SerializeField, Range(1, 3)] private float forwardBoost = 1.5f;
+    
+    [SerializeField] private float strafeThrust = 100;
+    [SerializeField, Range(1, 3)] private float strafeBoost = 1.5f;
+
+    [SerializeField] private float maxForwardSpeed = 100;
+
+
 
     private void Awake()
     {
@@ -24,10 +32,6 @@ public class SpacecraftController : MonoBehaviour
         this.rb = this.GetComponent<Rigidbody>();
 
         this.maxForwardSpeedSquare = Mathf.Pow(this.maxForwardSpeed, 2);
-        // For efficiency, we precalculate the square root of the desired max velocity
-        // so that we can use the cheaper rigidbody.velocity.sqrMagnitude when checking for max speed
-
-        this.rb.maxAngularVelocity = this.maxAngularVelocity;
     }
 
     private void FixedUpdate()
@@ -38,8 +42,11 @@ public class SpacecraftController : MonoBehaviour
 
     private void TryApplyThrust()
     {
-        if(!this.isTrust)
+        if(!this.isTrust && this.movement.x == 0f)
             return;
+
+        // if(this.movement.magnitude == 0f)
+        //     return;
 
         float maxSpeedDelta = (this.maxForwardSpeedSquare - this.rb.velocity.sqrMagnitude) / this.maxForwardSpeedSquare;
 
@@ -48,27 +55,21 @@ public class SpacecraftController : MonoBehaviour
             return;
         }    
         
-        this.rb.AddForce(this.transform.forward * maxSpeedDelta * this.forwardThrust, ForceMode.Acceleration);
-    }
-
-    // private void TryApplyTorque()
-    // {
-    //     float verticalAxis;
-    //     float horizonalAxis;
+        if (this.isTrust)
+            this.rb.AddForce(this.transform.forward * maxSpeedDelta * this.forwardThrust, ForceMode.Acceleration);
         
-    //     verticalAxis = this.mouseLook.y;
-    //     horizonalAxis = this.mouseLook.x;
+        // this.rb.AddForce(this.transform.forward * maxSpeedDelta * this.forwardThrust * this.movement.y + 
+        //                     this.transform.right * maxSpeedDelta * this.strafeThrust * this.movement.x, ForceMode.Acceleration);
+        
+        Debug.Log(isDash);
 
-    //     if (Mathf.Approximately(verticalAxis, 0f) && Mathf.Approximately(horizonalAxis, 0f))
-    //     {
-    //         return;
-    //     }
+        if (isDash)
+        {
+            this.rb.AddForce(this.transform.right * maxSpeedDelta * this.strafeThrust * this.movement.x * this.strafeBoost, ForceMode.VelocityChange);
 
-    //     Vector3 verticalTorque = this.transform.right * this.verticalTorqueThrust * verticalAxis;
-    //     Vector3 horizontalTorque = this.transform.up * this.horizontalTorqueThrust * horizonalAxis;
-
-    //     this.rb.AddTorque(verticalTorque + horizontalTorque);
-    // }
+            // isDash = false; 
+        }
+    }
 
     // TODO: think about this shit
     private void TryApplyTorque()
@@ -81,9 +82,10 @@ public class SpacecraftController : MonoBehaviour
     }
 
     // TODO: added boost option
-    public void ReceiveInput(bool isTrust, Vector2 mouseLook) {
+    public void ReceiveInput(bool isTrust, Vector2 movement, Vector2 mouseLook, bool isDash) {
         this.isTrust = isTrust;
+        this.movement = movement;
         this.mouseLook = mouseLook;
-        // sprintPressed = _sprintPressed;
+        this.isDash = isDash;
     }
 }

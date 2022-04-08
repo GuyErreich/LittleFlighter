@@ -62,6 +62,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""New Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""658959ce-22e6-412d-bf95-837ec2d83011"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b748ad4e-8899-497b-915d-0a6dd2a81adf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -108,6 +126,72 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Shield"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""d135350f-8817-4132-a722-a2a4cf5b290c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""aa139aa3-7a0a-45ba-bb25-4eabac22cc05"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""dd0a0bb3-c9c7-4c9f-8615-f7bac57ca166"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""5f2cfb79-5eea-485a-87f9-6c3fa7e15c84"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5decacef-b232-422c-9a11-f1df1ce95e32"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78dc3877-e6bf-4cce-8de0-ccb7fe408210"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,6 +204,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
         m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
         m_Character_Shield = m_Character.FindAction("Shield", throwIfNotFound: true);
+        m_Character_NewMovement = m_Character.FindAction("New Movement", throwIfNotFound: true);
+        m_Character_Dash = m_Character.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,6 +269,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Look;
     private readonly InputAction m_Character_Attack;
     private readonly InputAction m_Character_Shield;
+    private readonly InputAction m_Character_NewMovement;
+    private readonly InputAction m_Character_Dash;
     public struct CharacterActions
     {
         private @PlayerControls m_Wrapper;
@@ -191,6 +279,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Character_Look;
         public InputAction @Attack => m_Wrapper.m_Character_Attack;
         public InputAction @Shield => m_Wrapper.m_Character_Shield;
+        public InputAction @NewMovement => m_Wrapper.m_Character_NewMovement;
+        public InputAction @Dash => m_Wrapper.m_Character_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -212,6 +302,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Shield.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnShield;
                 @Shield.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnShield;
                 @Shield.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnShield;
+                @NewMovement.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNewMovement;
+                @NewMovement.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNewMovement;
+                @NewMovement.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNewMovement;
+                @Dash.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -228,6 +324,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Shield.started += instance.OnShield;
                 @Shield.performed += instance.OnShield;
                 @Shield.canceled += instance.OnShield;
+                @NewMovement.started += instance.OnNewMovement;
+                @NewMovement.performed += instance.OnNewMovement;
+                @NewMovement.canceled += instance.OnNewMovement;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -238,5 +340,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnShield(InputAction.CallbackContext context);
+        void OnNewMovement(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

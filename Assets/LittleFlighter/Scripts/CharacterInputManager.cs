@@ -15,8 +15,8 @@ namespace LittleFlighter
         private PlayerControls controls;
         private PlayerControls.CharacterActions characterInput;
 
-        private bool input_W, input_LeftMouse, input_Space;
-        private Vector2 mouseLook;
+        private bool input_W, input_LeftMouse, input_Space, input_Dash = false;
+        private Vector2 mouseLook, movement;
 
         private void Awake() 
         {
@@ -31,14 +31,16 @@ namespace LittleFlighter
             this.characterInput = this.controls.Character;
             
             this.characterInput.Movement.performed += ctx => this.input_W = ctx.ReadValueAsButton();
-            this.characterInput.Look.performed += ctx => calculateMouseLook(ctx.ReadValue<Vector2>());
+            this.characterInput.NewMovement.performed += ctx => this.movement = ctx.ReadValue<Vector2>();
+            this.characterInput.Dash.performed += ctx => this.dashOnce(ctx.ReadValueAsButton());
+            this.characterInput.Look.performed += ctx => this.calculateMouseLook(ctx.ReadValue<Vector2>());
             this.characterInput.Attack.performed += ctx => this.input_LeftMouse = ctx.ReadValueAsButton();
             this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
         }
 
         private void Update() 
         {
-            this.spacecraftController.ReceiveInput(this.input_W, this.mouseLook);
+            this.spacecraftController.ReceiveInput(this.input_W, this.movement, this.mouseLook, this.input_Dash);
             this.projectileLauncher.ReceiveInput(this.input_LeftMouse);
             this.sheildAbility.ReceiveInput(this.input_Space);
         }
@@ -63,6 +65,14 @@ namespace LittleFlighter
 
             this.mouseLook.x *= this.looksensitivityX;
             this.mouseLook.y *= this.looksensitivityY;
+        }
+
+        private void dashOnce(bool isDash)
+        {
+            if (this.input_Dash != isDash)
+                 this.input_Dash = isDash; 
+            else if (this.input_Dash == isDash)
+                 this.input_Dash = false;
         }
 
         private void OnEnable() {

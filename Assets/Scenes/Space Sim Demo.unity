@@ -6030,12 +6030,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea97a1b6d3396084a9c29405a8aa6a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainCamera: {fileID: 963194229}
+  health: 0
   forwardThrust: 200
+  forwardBoost: 1.5
+  strafeThrust: 20
+  strafeBoost: 1.5
   maxForwardSpeed: 100
-  verticalTorqueThrust: 1000
-  horizontalTorqueThrust: 1000
-  maxAngularVelocity: 360
 --- !u!54 &1590879582
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6338,6 +6338,18 @@ PrefabInstance:
     - target: {fileID: 9090688027647610561, guid: 086f15da50f7c5740a77b3392e62acaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090688027647610563, guid: 086f15da50f7c5740a77b3392e62acaf, type: 3}
+      propertyPath: rateOfFire
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090688027647610563, guid: 086f15da50f7c5740a77b3392e62acaf, type: 3}
+      propertyPath: rotationSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090688027647610563, guid: 086f15da50f7c5740a77b3392e62acaf, type: 3}
+      propertyPath: projectileSpeed
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 9090688027647610622, guid: 086f15da50f7c5740a77b3392e62acaf, type: 3}
       propertyPath: m_Name
