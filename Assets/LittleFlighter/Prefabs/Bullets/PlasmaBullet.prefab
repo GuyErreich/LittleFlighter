@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: 4305892084498081448}
   - component: {fileID: 6617244065992840223}
   m_Layer: 0
-  m_Name: ElectricBullet
-  m_TagString: Player
+  m_Name: PlasmaBullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
