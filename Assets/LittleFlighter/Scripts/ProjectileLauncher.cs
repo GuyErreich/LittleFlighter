@@ -6,11 +6,11 @@ namespace LittleFlighter
     public class ProjectileLauncher : MonoBehaviour
     {
         [SerializeField] private GameObject refProjectile;
-        [SerializeField, Range(0.001f, float.PositiveInfinity)] private float rateOfFire = 0.1f;
+        [SerializeField, Range(0.001f, 10f)] private float rateOfFire = 0.1f;
         [SerializeField] private float projectileSpeed;
         [SerializeField] private Transform refGunPivotL, refGunPivotR;
-        private GameObject projectile;
-        private Rigidbody projectileRbody, spaceCraftRbody;
+        // private GameObject projectile;
+        private Rigidbody spaceCraftRbody;
         private bool isLeft = true, isAttack;
 
         // Start is called before the first frame update
@@ -27,24 +27,25 @@ namespace LittleFlighter
             {
                 if (isAttack)
                 {
+                    Transform projectile = Instantiate(this.refProjectile).transform;
+                    projectile.gameObject.tag = "PlayerBullet";
+
                     if(this.isLeft)
                     {
-                        this.projectile = Instantiate(this.refProjectile);
-                        this.projectile.transform.position = this.refGunPivotL.transform.position;
-                        this.projectile.transform.rotation = this.refGunPivotL.transform.rotation;
+                        projectile.transform.position = this.refGunPivotL.transform.position;
+                        projectile.transform.rotation = this.refGunPivotL.transform.rotation;
 
-                        this.projectileRbody = this.projectile.GetComponent<Rigidbody>();
-                        this.projectileRbody.velocity = transform.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
+                        Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();
+                        projectileRbody.velocity = transform.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
                     }
 
                     if(!this.isLeft)
                     {
-                        this.projectile = Instantiate(this.refProjectile);
-                        this.projectile.transform.position = this.refGunPivotR.transform.position;
-                        this.projectile.transform.rotation = this.refGunPivotR.transform.rotation;
+                        projectile.transform.position = this.refGunPivotR.transform.position;
+                        projectile.transform.rotation = this.refGunPivotR.transform.rotation;
 
-                        this.projectileRbody = this.projectile.GetComponent<Rigidbody>();
-                        this.projectileRbody.velocity = transform.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
+                        Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();
+                        projectileRbody.velocity = transform.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
                     }
 
                     this.isLeft = !this.isLeft;
