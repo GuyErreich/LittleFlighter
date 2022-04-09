@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -17,14 +15,14 @@ public class CameraController : MonoBehaviour
         this._rotationOffset = this.transform.rotation * Quaternion.Inverse(this._followTransform.rotation);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         this.transform.position = Vector3.Lerp(this.transform.position,
                                                 this._followTransform.position + this._followTransform.TransformDirection(this._positionOffset),
-                                                Time.deltaTime * this.transformDamping);
+                                                Time.fixedDeltaTime * this.transformDamping);
 
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, 
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
                                                     this._followTransform.rotation * _rotationOffset,
-                                                    Time.deltaTime * this.rotationDamping);
+                                                    Time.fixedDeltaTime * this.rotationDamping);
     }
 }
