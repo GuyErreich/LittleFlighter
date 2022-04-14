@@ -11,14 +11,15 @@ GameObject:
   - component: {fileID: 8780559469722925752}
   - component: {fileID: 6425371486359637584}
   - component: {fileID: 5554304054249269820}
-  - component: {fileID: 1534333699592880433}
-  - component: {fileID: 8467863754803449642}
   - component: {fileID: 6399084532372760101}
   - component: {fileID: 4305892084498081448}
   - component: {fileID: 6617244065992840223}
+  - component: {fileID: 4698266703573450432}
+  - component: {fileID: 4363726804450794165}
+  - component: {fileID: 8467863754803449642}
   m_Layer: 0
   m_Name: PlasmaBullet
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,8 +32,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962098453314221968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2384996, y: 1.5143558, z: 0.7807278}
-  m_LocalScale: {x: 0.5924307, y: 0.5924307, z: 0.5924307}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -113,32 +114,6 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1534333699592880433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962098453314221968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e182c9d6f8897364792bba6a0aa8971e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 964856942827028862, guid: 62185b9a86a1ab342a23eb3eb8a05b9d, type: 3}
---- !u!114 &8467863754803449642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962098453314221968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12cdfeb2086afbd4cb5a926c8296286e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 5
 --- !u!54 &6399084532372760101
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -275,3 +250,48 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &4698266703573450432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962098453314221968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43e6ecb70bc6664599653ba00bcf935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+--- !u!114 &4363726804450794165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962098453314221968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c162763cebdd3f7428b79a045c0b6dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 964856942827028862, guid: 62185b9a86a1ab342a23eb3eb8a05b9d, type: 3}
+  OnEnemyHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerHit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8467863754803449642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962098453314221968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a3b3a2205d9374bb349c55b395ad53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 5

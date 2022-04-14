@@ -30,6 +30,37 @@ Transform:
   m_Father: {fileID: 9090688028100393831}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1121726427130180373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3819480532250123339}
+  m_Layer: 0
+  m_Name: EnemyGFX
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3819480532250123339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121726427130180373}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9090688028520556464}
+  m_Father: {fileID: 9090688027647610561}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9090688027647610622
 GameObject:
   m_ObjectHideFlags: 0
@@ -48,7 +79,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9090688027647610561
 Transform:
   m_ObjectHideFlags: 0
@@ -58,9 +89,9 @@ Transform:
   m_GameObject: {fileID: 9090688027647610622}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.9, y: 0.80999994, z: -2660.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
-  - {fileID: 9090688028520556464}
+  - {fileID: 3819480532250123339}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -75,7 +106,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 100
+  m_Radius: 18
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9090688027647610565
 MonoBehaviour:
@@ -103,12 +134,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootTypesRefs: {fileID: 11400000, guid: 9dd22f22c074ddc478109f13765ff384, type: 2}
+  refEnemyModel: {fileID: 3819480532250123339}
   refGunPivot: {fileID: 394763667}
+  health: 100
   type: Plasma
-  damage: 5
-  projectileSpeed: 30
+  damage: 20
+  projectileSpeed: 100
   rateOfFire: 0.5
-  rotationSpeed: 3
+  rotationSpeed: 5
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7449156841975647475, guid: 74613e000d0ad0a41b67dc94483f4874, type: 3}
+        m_TargetAssemblyTypeName: LittleFlighter.UI.HealthBars.DynamicHealthBar,
+          Assembly-CSharp
+        m_MethodName: HandleHealthChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9090688028100393828
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,8 +170,9 @@ GameObject:
   - component: {fileID: 9090688028100393832}
   - component: {fileID: 9090688028100393833}
   - component: {fileID: 9090688028100393830}
+  - component: {fileID: 403577858}
   m_Layer: 0
-  m_Name: Box
+  m_Name: Cannon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,12 +249,39 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090688028100393828}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9b49084564188a14d8ec56f8292dbbf2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.05, y: 1.05, z: 1.05}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &403577858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090688028100393828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6368847872ce47241ad50d3ca08abd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBulletHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9090688027647610563}
+        m_TargetAssemblyTypeName: LittleFlighter.Enemy.EnemyController, Assembly-CSharp
+        m_MethodName: HandleHit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9090688028520556460
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,8 +294,9 @@ GameObject:
   - component: {fileID: 9090688028520556465}
   - component: {fileID: 9090688028520556462}
   - component: {fileID: 9090688028520556463}
+  - component: {fileID: 1664811004}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Body
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,12 +309,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090688028520556460}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.1969852, y: 7.1969852, z: 7.1969852}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9090688028100393831}
-  m_Father: {fileID: 9090688027647610561}
+  m_Father: {fileID: 3819480532250123339}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9090688028520556465
@@ -295,9 +373,36 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090688028520556460}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9b49084564188a14d8ec56f8292dbbf2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1664811004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090688028520556460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6368847872ce47241ad50d3ca08abd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBulletHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9090688027647610563}
+        m_TargetAssemblyTypeName: LittleFlighter.Enemy.EnemyController, Assembly-CSharp
+        m_MethodName: HandleHit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
