@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DataObjects
+namespace LittleFlighter.DataObjects
 {
     [CreateAssetMenu(fileName = "New Dictionary Storage", menuName = "Data Objects/Dictionary/Game Objects")]
     public class GameObjectsStorage : ScriptableObject
