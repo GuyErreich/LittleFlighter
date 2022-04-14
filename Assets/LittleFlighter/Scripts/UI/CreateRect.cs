@@ -10,11 +10,11 @@ namespace LittleFlighter
         Rect crosshairRect;
 
         // Start is called before the first frame update
-        private void Start()
+        private void Awake()
         {
             this.windowSize = new Vector2(Screen.width, Screen.height);
 
-            CalculateRect();
+            this.CalculateRect();
         }
 
         // Update is called once per frame
