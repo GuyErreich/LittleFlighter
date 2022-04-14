@@ -15,13 +15,31 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DashRight",
+                    "type": "PassThrough",
+                    "id": "b748ad4e-8899-497b-915d-0a6dd2a81adf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashLeft",
+                    "type": "PassThrough",
+                    "id": "b263cc33-a3d9-4b8d-8137-813597ec82d7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Look",
                     "type": "PassThrough",
                     "id": "1cc380c8-ba7b-4db9-a275-30145bec4a2b",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Attack",
@@ -40,24 +58,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "New Movement",
-                    "type": "PassThrough",
-                    "id": "658959ce-22e6-412d-bf95-837ec2d83011",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "b748ad4e-8899-497b-915d-0a6dd2a81adf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -106,68 +106,24 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "d135350f-8817-4132-a722-a2a4cf5b290c",
-                    "path": "2DVector",
-                    "interactions": "",
+                    "name": "",
+                    "id": "35a39719-deec-4ddb-8e35-5ee1c609065b",
+                    "path": "<Keyboard>/d",
+                    "interactions": "MultiTap(pressPoint=0.1)",
                     "processors": "",
                     "groups": "",
-                    "action": "New Movement",
-                    "isComposite": true,
+                    "action": "DashRight",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "aa139aa3-7a0a-45ba-bb25-4eabac22cc05",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "dd0a0bb3-c9c7-4c9f-8615-f7bac57ca166",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "5f2cfb79-5eea-485a-87f9-6c3fa7e15c84",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "5decacef-b232-422c-9a11-f1df1ce95e32",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
-                    "id": "78dc3877-e6bf-4cce-8de0-ccb7fe408210",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "Press(behavior=2)",
+                    "id": "180cbbc6-3ab9-4d38-aa3b-5cac2c5f8585",
+                    "path": "<Keyboard>/a",
+                    "interactions": "MultiTap",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "DashLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

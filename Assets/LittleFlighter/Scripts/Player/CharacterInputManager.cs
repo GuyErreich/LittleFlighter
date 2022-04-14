@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 namespace LittleFlighter
 {
@@ -11,16 +12,15 @@ namespace LittleFlighter
 
         private SpacecraftController spacecraftController;
         private ProjectileLauncher projectileLauncher;
-        private SheildAbility sheildAbility;
+        // private SheildAbility sheildAbility;
         private PlayerControls controls;
         private PlayerControls.CharacterActions characterInput;
 
         private bool input_W, input_LeftMouse, input_Space, input_Dash;
-        private int dashCount = 1;
-        private Vector2 mouseLook, movement;
+        private Vector2 mouseLook;
 
         #region Getters and Setters
-        public float LookSensitivityX 
+        public float LookSensitivityX
         {
             get { return this.lookSensitivityX; }
         }
@@ -31,27 +31,27 @@ namespace LittleFlighter
             Cursor.SetCursor(this.cursor, new Vector2(this.cursor.width / 2, this.cursor.height / 2),
                                 CursorMode.Auto);
 
+            Cursor.lockState = CursorLockMode.Confined;
+
             spacecraftController = this.GetComponent<SpacecraftController>();
             projectileLauncher = this.GetComponent<ProjectileLauncher>();
-            sheildAbility = this.GetComponent<SheildAbility>();
+            // sheildAbility = this.GetComponent<SheildAbility>();
 
             this.controls = new PlayerControls();
             this.characterInput = this.controls.Character;
 
             this.characterInput.Movement.performed += ctx => this.input_W = ctx.ReadValueAsButton();
-            this.characterInput.NewMovement.performed += ctx => this.movement = ctx.ReadValue<Vector2>();
-            this.characterInput.Dash.performed += ctx => this.input_Dash = ctx.ReadValueAsButton();
+            this.characterInput.DashRight.performed += ctx => this.spacecraftController.Dash(1);
+            this.characterInput.DashLeft.performed += ctx => this.spacecraftController.Dash(-1);
             this.characterInput.Look.performed += ctx => this.calculateMouseLook(ctx.ReadValue<Vector2>());
             this.characterInput.Attack.performed += ctx => this.input_LeftMouse = ctx.ReadValueAsButton();
-            this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
+            // this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            this.spacecraftController.ReceiveInput(this.input_W, this.movement, this.mouseLook, this.input_Dash);
-            this.input_Dash = false;  // Makes sure that u must click the dash button again for every dash
+            this.spacecraftController.ReceiveInput(this.input_W, this.mouseLook);
             this.projectileLauncher.ReceiveInput(this.input_LeftMouse);
-            this.sheildAbility.ReceiveInput(this.input_Space);
         }
 
         /// <summary>
