@@ -9,13 +9,6 @@ namespace LittleFlighter.System
 {
     public class EnemyManager : MonoBehaviour
     {
-        public enum ObjectType
-        {
-            enemy = 0,
-            pointer = 1,
-            healthBar = 2
-        }
-
         [Header("References")]
         [SerializeField] private GameObject enemy;
         [SerializeField] private Transform enemiesContainer;
@@ -39,8 +32,8 @@ namespace LittleFlighter.System
         private Queue<GameObject> healthBarsPool = new Queue<GameObject>();
 
         private List<GameObject> currentEnemies = new List<GameObject>();
-        private List<GameObject> currentPointers = new List<GameObject>();
-        private List<GameObject> currenthealthBars = new List<GameObject>();
+        private Dictionary<GameObject, GameObject> currentPointers = new Dictionary<GameObject, GameObject>();
+        private Dictionary<GameObject, GameObject> currenthealthBars = new Dictionary<GameObject, GameObject>();
 
         private int enemiesCurrentAmount = 0;  
 
@@ -48,20 +41,18 @@ namespace LittleFlighter.System
         void Start()
         {
             StartCoroutine(this.SpawnRoutine());
-        }
-
-        private void Update()
-        {
-
+            StartCoroutine(this.HealthSupervisor());
         }
 
         private IEnumerator SpawnRoutine()
         {
             while (true)
             {
-                float posX = Random.Range(-spawnZoneRange, spawnZoneRange);
-                float posY = Random.Range(-spawnZoneRange, spawnZoneRange);
-                float posZ = Random.Range(-spawnZoneRange, spawnZoneRange);
+                // yield return HealthSupervisor();
+
+                float posX = Random.Range(-this.spawnZoneRange, this.spawnZoneRange);
+                float posY = Random.Range(-this.spawnZoneRange, this.spawnZoneRange);
+                float posZ = Random.Range(-this.spawnZoneRange, this.spawnZoneRange);
 
                 Vector3 spawnPosition =  new Vector3(posX, posY, posZ);
 
@@ -97,7 +88,7 @@ namespace LittleFlighter.System
                         var pointer = this.pointersPool.Dequeue();
                         pointer.SetActive(true);
 
-                        currentPointers.Add(pointer);
+                        currentPointers.Add(enemy, pointer);
                     }
 
                     if (this.healthBarsPool.Count > 0)
@@ -108,10 +99,9 @@ namespace LittleFlighter.System
 
                         healthBar.SetActive(true);
 
-                        currenthealthBars.Add(healthBar);
+                        currenthealthBars.Add(enemy, healthBar);
                     }
                 }
-                
 
                 yield return new WaitForSeconds(spawnSpeed);
             }
@@ -119,39 +109,44 @@ namespace LittleFlighter.System
 
         #region Events Handlers
 
-        public void HandleDeath(GameObject obj, ObjectType type)
+        private IEnumerator HealthSupervisor()
         {
-            this.RemoveFromQueue(obj, type);
+            while (true)
+            {
+                foreach(var enemy in currentEnemies.ToArray())
+                {
+                    var enemyHealth = enemy.GetComponent<EnemyController>().CurrentHealth;
+
+                    if (enemyHealth <= 0)
+                        this.ReturnToQueue(enemy);
+                        // yield return new WaitUntil(() => { this.ReturnToQueue(enemy); return true;});
+
+                    yield return null;
+                }
+
+                yield return null;
+            }
         }
-
-        // public void HandlePointerDestroy(GameObject pointer)
-        // {
-        //     pointer.SetActive(false);
-            
-        //     this.enemiesPool.Enqueue(pointer);
-        // }
-
-        // public void HandleHealthBarthDestroy(GameObject pointer)
-        // {
-        //     pointer.SetActive(false);
-            
-        //     this.enemiesPool.Enqueue(pointer);
-        // }
 
         #endregion
 
-        private void RemoveFromQueue(GameObject obj, ObjectType type)
+        private void ReturnToQueue(GameObject enemy)
         {
-            obj.SetActive(false);
+            this.currentEnemies.Remove(enemy);
+            enemy.SetActive(false);
+            this.enemiesPool.Enqueue(enemy);
 
-            if (type == ObjectType.enemy)
-                this.enemiesPool.Enqueue(obj);
+            var pointer = this.currentPointers[enemy];
+            this.currentPointers.Remove(enemy);
+            pointer.SetActive(false);
+            this.pointersPool.Enqueue(pointer);
 
-            if (type == ObjectType.pointer)
-                this.pointersPool.Enqueue(obj);
-
-            if (type == ObjectType.healthBar)
-                this.healthBarsPool.Enqueue(obj);
+            var healthBar = this.currenthealthBars[enemy];
+            this.currenthealthBars.Remove(enemy);
+            healthBar.SetActive(false);
+            enemy.GetComponent<EnemyController>().OnHealthChanged -= healthBar.GetComponent<DynamicHealthBar>().HandleHealthChanged;
+            this.healthBarsPool.Enqueue(healthBar);
+            
         }
     }
 }

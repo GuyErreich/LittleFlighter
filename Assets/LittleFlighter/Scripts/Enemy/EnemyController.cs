@@ -21,7 +21,7 @@ namespace LittleFlighter.Enemy
         [Header("Defense Settings")]
         [SerializeField] private int health = 100;
 
-        
+
         [Header("Attack Settings")]
         [SerializeField, ListToPopup(typeof(EnemyController), "shootTypes")] private string type;
         [SerializeField] private int damage = 5;
@@ -36,25 +36,22 @@ namespace LittleFlighter.Enemy
         private bool isInRange = false;
         private Transform target;
         private Quaternion nextRotation;
-        private float cooldownDuration = 0f; 
+        private float cooldownDuration = 0f;
         private Health healthComponent;
 
         public event Action<float> OnHealthChanged;
 
 
         #region Getters and Setters
-        public bool IsInRange { get {return this.isInRange; } }
+        public bool IsInRange { get { return this.isInRange; } }
 
         public int CurrentHealth { get; private set; }
 
         #endregion
-        
 
 
-        private void Awake()
-        {
-            this.nextRotation = UnityEngine.Random.rotation;
 
+        private void OnEnable() {
             this.CurrentHealth = this.health;
         }
 
@@ -63,7 +60,7 @@ namespace LittleFlighter.Enemy
             this.RandomRoataion();
         }
 
-        public void AttackMode() 
+        public void AttackMode()
         {
             this.FollowTarget();
 
@@ -98,20 +95,20 @@ namespace LittleFlighter.Enemy
 
             this.nextRotation = Quaternion.LookRotation(dir);
 
-            this.refEnemyModel.rotation =  Quaternion.Slerp(this.refEnemyModel.rotation, this.nextRotation, this.rotationSpeed * Time.deltaTime);
+            this.refEnemyModel.rotation = Quaternion.Slerp(this.refEnemyModel.rotation, this.nextRotation, this.rotationSpeed * Time.deltaTime);
         }
 
         private void RandomRoataion()
-        {            
+        {
             while (Quaternion.Angle(this.refEnemyModel.rotation, this.nextRotation) == 0)
             {
                 this.nextRotation = UnityEngine.Random.rotation;
             }
 
             this.refEnemyModel.rotation = Quaternion.Slerp(this.refEnemyModel.rotation, this.nextRotation, this.rotationSpeed * Time.deltaTime);
-        } 
+        }
 
-        private void OnTriggerEnter(Collider collider) 
+        private void OnTriggerEnter(Collider collider)
         {
             if (collider.CompareTag("Player"))
             {
@@ -120,7 +117,7 @@ namespace LittleFlighter.Enemy
             }
         }
 
-        private void OnTriggerExit(Collider collider) 
+        private void OnTriggerExit(Collider collider)
         {
             if (collider.CompareTag("Player"))
                 this.isInRange = false;
@@ -132,10 +129,13 @@ namespace LittleFlighter.Enemy
         public void HandleHit(int amount, Collider collider)
         {
             if (collider.CompareTag("PlayerBullet"))
-                this.ModifyHealth( -amount );
+                this.ModifyHealth(-amount);
         }
 
         #endregion Events Handlers
+
+
+        #region Health Control
 
         private void ModifyHealth(int amount)
         {
@@ -146,6 +146,8 @@ namespace LittleFlighter.Enemy
             this.OnHealthChanged?.Invoke(currentHealthPct);
         }
 
+        #endregion Health Control
+
 
         #region Editor Control
 
@@ -155,7 +157,7 @@ namespace LittleFlighter.Enemy
         }
 
 
-        public void OnAfterDeserialize() {}
+        public void OnAfterDeserialize() { }
 
         #endregion
     }

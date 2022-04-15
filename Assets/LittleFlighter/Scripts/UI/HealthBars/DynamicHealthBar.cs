@@ -35,6 +35,10 @@ namespace LittleFlighter.UI.HealthBars
             rect.pivot = new Vector2(0.5f, 0.5f);
         }
 
+        private void OnEnable() {
+            foregroundImage.fillAmount = 1f;
+        }
+
         public void HandleHealthChanged(float percentage)
         {
             StartCoroutine(this.ChangeToPercentage(percentage));
@@ -75,8 +79,6 @@ namespace LittleFlighter.UI.HealthBars
             newScale.x = Mathf.Clamp(this.maxScale.x - this.GetDistancePercentage(), 0.1f, 1f);
             newScale.y = Mathf.Clamp(this.maxScale.y - this.GetDistancePercentage(), 0.1f, 1f);
             newScale.z = Mathf.Clamp(this.maxScale.z - this.GetDistancePercentage(), 0.1f, 1f);
-
-            print(newScale);
 
             this.transform.localScale = newScale;
         }
