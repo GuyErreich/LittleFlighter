@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 3649135283096709748}
   - component: {fileID: 642932536077146491}
   - component: {fileID: 5433472065607203341}
-  - component: {fileID: 7909934647927054682}
   - component: {fileID: 4938651915700279684}
   - component: {fileID: -1182107347256533928}
+  - component: {fileID: -3628025642995812239}
+  - component: {fileID: -3020973126509149575}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Player
@@ -33,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 520327863253638008}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.77427906, y: -0.2904975, z: -0.00059607154}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1.36}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,7 +112,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520327863253638008}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -185,19 +186,6 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
---- !u!114 &7909934647927054682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520327863253638008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3832223d30d2aec4b9e59842f99553b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 964856942827028862, guid: 62185b9a86a1ab342a23eb3eb8a05b9d, type: 3}
 --- !u!64 &4938651915700279684
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -221,7 +209,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 520327863253638008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12cdfeb2086afbd4cb5a926c8296286e, type: 3}
+  m_Script: {fileID: 11500000, guid: 88a3b3a2205d9374bb349c55b395ad53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 5
+--- !u!114 &-3628025642995812239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520327863253638008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c162763cebdd3f7428b79a045c0b6dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 964856942827028862, guid: 62185b9a86a1ab342a23eb3eb8a05b9d, type: 3}
+--- !u!114 &-3020973126509149575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520327863253638008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43e6ecb70bc6664599653ba00bcf935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 3

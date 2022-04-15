@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 4305892084498081448}
   - component: {fileID: 6617244065992840223}
   - component: {fileID: 4698266703573450432}
-  - component: {fileID: 4363726804450794165}
   - component: {fileID: 8467863754803449642}
+  - component: {fileID: -8247845478977012090}
   m_Layer: 0
   m_Name: PlasmaBullet
   m_TagString: EnemyBullet
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4962098453314221968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -184,10 +184,10 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.075
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.75
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -263,25 +263,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
---- !u!114 &4363726804450794165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962098453314221968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c162763cebdd3f7428b79a045c0b6dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 964856942827028862, guid: 62185b9a86a1ab342a23eb3eb8a05b9d, type: 3}
-  OnEnemyHit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPlayerHit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &8467863754803449642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,4 +275,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a3b3a2205d9374bb349c55b395ad53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 5
+  duration: 20
+--- !u!114 &-8247845478977012090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962098453314221968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c162763cebdd3f7428b79a045c0b6dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 964856942827028862, guid: 62185b9a86a1ab342a23eb3eb8a05b9d, type: 3}

@@ -31,7 +31,7 @@ namespace LittleFlighter.Bullets
             {
                 var position = collider.ClosestPointOnBounds(this.transform.position);
                 position += -this.transform.forward;
-                var effect = Instantiate(this.effect, position, new Quaternion(0, 0, 0, 0));
+                var effect = Instantiate(this.effect, position, new Quaternion(0f, 0f, 0f, 0f));
 
                 Destroy(this.gameObject);
 
@@ -47,7 +47,7 @@ namespace LittleFlighter.Bullets
             {
                 var position = collider.ClosestPointOnBounds(this.transform.position);
                 position += -this.transform.forward;
-                var effect = Instantiate(this.effect, position, new Quaternion(0, 0, 0, 0));
+                var effect = Instantiate(this.effect, position, new Quaternion(0f, 0f, 0f, 0f));
 
                 Destroy(this.gameObject);
 
