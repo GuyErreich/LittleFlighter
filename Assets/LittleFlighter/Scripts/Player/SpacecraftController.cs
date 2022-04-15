@@ -82,7 +82,7 @@ namespace LittleFlighter
         {
             float horizonalAxis = this.mouseLook.x;
 
-            if (this.currentMaxVelocity < this.rb.velocity.magnitude)
+            if (this.rb.velocity.x == 0f && this.currentMaxVelocity < this.rb.velocity.magnitude)
                 this.currentMaxVelocity = this.rb.velocity.magnitude;
 
             float velocityNormlized = this.rb.velocity.magnitude / this.currentMaxVelocity;

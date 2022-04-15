@@ -54,7 +54,7 @@ namespace LittleFlighter
                     }
 
                     Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();
-                    projectileRbody.velocity = transform.forward * this.projectileSpeed + new Vector3 (0, 0, this.spaceCraftRbody.velocity.z);
+                    projectileRbody.velocity = transform.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
 
                     this.isLeft = !this.isLeft;
 
