@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using LittleFlighter.System;
-
-using LittleFlighter.Bullets;
+using UnityEngine.VFX;
 
 namespace LittleFlighter
 {
@@ -13,8 +11,9 @@ namespace LittleFlighter
         
 
         [Header("References")]
-        [SerializeField] private GameObject refProjectile;
-        [SerializeField] private Transform refGunPivotL, refGunPivotR;
+        [SerializeField] private GameObject projectile;
+        [SerializeField] private Transform gunPivotLeft, gunPivotRight;
+        [SerializeField] private VisualEffect muzzleEffectLeft, muzzleEffectRight;
 
 
         [Header("Attack Settings")]
@@ -23,10 +22,17 @@ namespace LittleFlighter
         [SerializeField, Range(0.001f, 10f)] private float rateOfFire = 0.1f;
 
 
-        // Start is called before the first frame update
-        void Start()
-        {
+        private void Awake() {
             this.spaceCraftRbody = GetComponent<Rigidbody>();
+
+            this.muzzleEffectLeft.enabled = true;
+            this.muzzleEffectRight.enabled = true;
+        }
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+            
             
             StartCoroutine(this.Shoot());
         }
@@ -37,20 +43,24 @@ namespace LittleFlighter
             {
                 if (isAttack)
                 {       
-                    Transform projectile = Instantiate(this.refProjectile).transform;
+                    Transform projectile = Instantiate(this.projectile).transform;
 
                     projectile.gameObject.tag = "PlayerBullet";
 
                     if(this.isLeft)
                     {
-                        projectile.transform.position = this.refGunPivotL.transform.position;
-                        projectile.transform.rotation = this.refGunPivotL.transform.rotation;
+                        projectile.transform.position = this.gunPivotLeft.transform.position;
+                        projectile.transform.rotation = this.gunPivotLeft.transform.rotation;
+
+                        this.muzzleEffectLeft.Play();
                     }
 
                     if(!this.isLeft)
                     {
-                        projectile.transform.position = this.refGunPivotR.transform.position;
-                        projectile.transform.rotation = this.refGunPivotR.transform.rotation;
+                        projectile.transform.position = this.gunPivotRight.transform.position;
+                        projectile.transform.rotation = this.gunPivotRight.transform.rotation;
+
+                        this.muzzleEffectRight.Play();
                     }
 
                     Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();
