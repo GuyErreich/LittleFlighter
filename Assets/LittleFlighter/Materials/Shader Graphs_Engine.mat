@@ -39,7 +39,7 @@ Material:
     - Vector1_8cce75aca05845ae9eca3f9d0ab288a9: -50
     - Vector1_cd30355073f140f495f39de1a06970dc: 6
     - _DisolveScale: 60
-    - _FlameSize: 2.9999971
+    - _FlameSize: 2.0867414
     m_Colors:
     - Color_1: {r: 0, g: 1, b: 0.90466136, a: 1}
     - Color_802a839cd84c466ca110f6eb4acec630: {r: 0, g: 0.039546248, b: 1, a: 1}
@@ -47,5 +47,5 @@ Material:
     - Vector2_ef06fcecc96741b6b5b184c5934f3750: {r: 0, g: 0.51, b: 0, a: 0}
     - _Color01: {r: 0, g: 0.03921569, b: 1, a: 1}
     - _Color02: {r: 0, g: 1, b: 0.9079328, a: 1}
-    - _DisolveSpeed: {r: 0.5, g: -0.25000036, b: 0, a: 0}
+    - _DisolveSpeed: {r: 0.5, g: -0.85883886, b: 0, a: 0}
   m_BuildTextureStacks: []
