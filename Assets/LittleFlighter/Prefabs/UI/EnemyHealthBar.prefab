@@ -140,8 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foregroundImage: {fileID: 6644173781093046148}
   updateSpeedSeconds: 0.2
-  positionOffset: 10
-  maxDistanceToScale: 350
+  positionOffset: 40
+  maxDistanceToScale: 750
 --- !u!1 &6644173782133391747
 GameObject:
   m_ObjectHideFlags: 0
