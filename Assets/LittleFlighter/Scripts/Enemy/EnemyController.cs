@@ -51,7 +51,8 @@ namespace LittleFlighter.Enemy
 
 
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             this.CurrentHealth = this.health;
         }
 
@@ -147,7 +148,6 @@ namespace LittleFlighter.Enemy
         }
 
         #endregion Health Control
-
 
         #region Editor Control
 
