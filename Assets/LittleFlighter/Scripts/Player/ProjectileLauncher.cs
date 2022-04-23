@@ -14,6 +14,7 @@ namespace LittleFlighter
         [SerializeField] private GameObject projectile;
         [SerializeField] private Transform gunPivotLeft, gunPivotRight;
         [SerializeField] private VisualEffect muzzleEffectLeft, muzzleEffectRight;
+        [SerializeField] private AudioSource shootSoundLeft, shootSoundRight;
 
 
         [Header("Attack Settings")]
@@ -53,6 +54,7 @@ namespace LittleFlighter
                         projectile.transform.rotation = this.gunPivotLeft.transform.rotation;
 
                         this.muzzleEffectLeft.Play();
+                        this.shootSoundLeft.Play();
                     }
 
                     if(!this.isLeft)
@@ -61,6 +63,7 @@ namespace LittleFlighter
                         projectile.transform.rotation = this.gunPivotRight.transform.rotation;
 
                         this.muzzleEffectRight.Play();
+                        this.shootSoundRight.Play();
                     }
 
                     Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();

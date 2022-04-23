@@ -11,7 +11,6 @@ namespace LittleFlighter
         [Header("References")]
         [SerializeField] private Transform spaceCraftModel;
         [SerializeField] private Material boosterFlameMaterial;
-        [SerializeField] private TrailRenderer boosterTrail;
 
 
         [Header("Defense Settings")]
@@ -22,7 +21,7 @@ namespace LittleFlighter
         [SerializeField] private float forwardThrust = 200;
         [SerializeField] private float strafeBoost = 150;
 
-        [Header("Events")] 
+        [Header("Events")]
         public UnityEvent<float> OnHealthChanged;
 
         private bool isTrust = false;
@@ -66,7 +65,7 @@ namespace LittleFlighter
 
             this.rb.AddForce(this.transform.forward * this.forwardThrust, ForceMode.Acceleration);
 
-            
+
         }
 
         public void Dash(float dir)
@@ -107,34 +106,23 @@ namespace LittleFlighter
 
             if (this.isTrust)
             {
-                var flameSize =  Mathf.Lerp(this.boosterFlameMaterial.GetFloat("_FlameSize"), 0.75f, changeTime);
+                var flameSize = Mathf.Lerp(this.boosterFlameMaterial.GetFloat("_FlameSize"), 0.75f, changeTime);
                 this.boosterFlameMaterial.SetFloat("_FlameSize", flameSize);
 
                 var disolveSpeed = Vector4.Lerp(this.boosterFlameMaterial.GetVector("_DisolveSpeed"), new Vector4(0.5f, -1.75f, 0f, 0f), changeTime);
                 this.boosterFlameMaterial.SetVector("_DisolveSpeed", disolveSpeed);
-
-                this.boosterTrail.enabled = true;
-                this.boosterTrail.time = Mathf.Lerp(this.boosterTrail.time, 0.25f, changeTime);
             }
             else
             {
-                var flameSize =  Mathf.Lerp(this.boosterFlameMaterial.GetFloat("_FlameSize"), 3f, changeTime);
+                var flameSize = Mathf.Lerp(this.boosterFlameMaterial.GetFloat("_FlameSize"), 3f, changeTime);
                 this.boosterFlameMaterial.SetFloat("_FlameSize", flameSize);
 
                 var disolveSpeed = Vector4.Lerp(this.boosterFlameMaterial.GetVector("_DisolveSpeed"), new Vector4(0.5f, -0.25f, 0f, 0f), changeTime);
                 this.boosterFlameMaterial.SetVector("_DisolveSpeed", disolveSpeed);
-
-                if (this.boosterTrail.time <= 0)
-                {
-                    this.boosterTrail.enabled = false;
-                    return;
-                }
-
-                this.boosterTrail.time = Mathf.Lerp(this.boosterTrail.time, 0f, changeTime);
             }
         }
 
-       #region Events Handlers
+        #region Events Handlers
 
         public void HandleHit(int amount, Collider collider)
         {
@@ -146,7 +134,6 @@ namespace LittleFlighter
 
         private void ModifyHealth(int amount)
         {
-            print(amount);
             this.CurrentHealth += amount;
 
             float currentHealthPct = (float)this.CurrentHealth / (float)this.health;

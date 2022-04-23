@@ -150,6 +150,34 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Misc"",
+            ""id"": ""bf8fb89c-0e9c-4715-9abd-c1a84a89b2c0"",
+            ""actions"": [
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f315bc4-b4fe-42c2-96a3-77d3936b6f03"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""17bb45dd-3c81-4ba0-9866-b947e429c65d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -162,6 +190,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
         m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
         m_Character_Shield = m_Character.FindAction("Shield", throwIfNotFound: true);
+        // Misc
+        m_Misc = asset.FindActionMap("Misc", throwIfNotFound: true);
+        m_Misc_PauseGame = m_Misc.FindAction("PauseGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -290,6 +321,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public CharacterActions @Character => new CharacterActions(this);
+
+    // Misc
+    private readonly InputActionMap m_Misc;
+    private IMiscActions m_MiscActionsCallbackInterface;
+    private readonly InputAction m_Misc_PauseGame;
+    public struct MiscActions
+    {
+        private @PlayerControls m_Wrapper;
+        public MiscActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PauseGame => m_Wrapper.m_Misc_PauseGame;
+        public InputActionMap Get() { return m_Wrapper.m_Misc; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MiscActions set) { return set.Get(); }
+        public void SetCallbacks(IMiscActions instance)
+        {
+            if (m_Wrapper.m_MiscActionsCallbackInterface != null)
+            {
+                @PauseGame.started -= m_Wrapper.m_MiscActionsCallbackInterface.OnPauseGame;
+                @PauseGame.performed -= m_Wrapper.m_MiscActionsCallbackInterface.OnPauseGame;
+                @PauseGame.canceled -= m_Wrapper.m_MiscActionsCallbackInterface.OnPauseGame;
+            }
+            m_Wrapper.m_MiscActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
+            }
+        }
+    }
+    public MiscActions @Misc => new MiscActions(this);
     public interface ICharacterActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -298,5 +362,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnShield(InputAction.CallbackContext context);
+    }
+    public interface IMiscActions
+    {
+        void OnPauseGame(InputAction.CallbackContext context);
     }
 }

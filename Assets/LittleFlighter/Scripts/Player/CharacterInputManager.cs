@@ -41,8 +41,8 @@ namespace LittleFlighter
             this.characterInput = this.controls.Character;
 
             this.characterInput.Movement.performed += ctx => this.input_W = ctx.ReadValueAsButton();
-            this.characterInput.DashRight.performed += ctx => this.spacecraftController.Dash(1);
-            this.characterInput.DashLeft.performed += ctx => this.spacecraftController.Dash(-1);
+            this.characterInput.DashRight.performed += _ => this.spacecraftController.Dash(1);
+            this.characterInput.DashLeft.performed += _ => this.spacecraftController.Dash(-1);
             this.characterInput.Look.performed += ctx => this.calculateMouseLook(ctx.ReadValue<Vector2>());
             this.characterInput.Attack.performed += ctx => this.input_LeftMouse = ctx.ReadValueAsButton();
             // this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
