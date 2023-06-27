@@ -29,8 +29,9 @@ namespace LittleFlighter.Bullets
         {
             if (collider.CompareTag("Enemy"))
             {
-                var position = collider.ClosestPointOnBounds(this.transform.position);
-                position += -this.transform.forward;
+                // var position = collider.ClosestPointOnBounds(this.transform.position);
+                var position = this.transform.position;
+                position += this.transform.forward * -4f;
                 var effect = Instantiate(this.effect, position, new Quaternion(0f, 0f, 0f, 0f));
 
                 Destroy(this.gameObject);
@@ -45,8 +46,9 @@ namespace LittleFlighter.Bullets
         {
             if (collider.CompareTag("Player"))
             {
-                var position = collider.ClosestPointOnBounds(this.transform.position);
-                position += -this.transform.forward;
+                // var position = collider.ClosestPointOnBounds(this.transform.position);
+                var position = this.transform.position;
+                position += this.transform.forward * -4f;
                 var effect = Instantiate(this.effect, position, new Quaternion(0f, 0f, 0f, 0f));
 
                 Destroy(this.gameObject);
