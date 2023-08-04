@@ -12,7 +12,7 @@ namespace LittleFlighter
 
         private SpacecraftController spacecraftController;
         private ProjectileLauncher projectileLauncher;
-        // private SheildAbility sheildAbility;
+        private SheildAbility sheildAbility;
         private PlayerControls controls;
         private PlayerControls.CharacterActions characterInput;
 
@@ -35,7 +35,7 @@ namespace LittleFlighter
 
             spacecraftController = this.GetComponent<SpacecraftController>();
             projectileLauncher = this.GetComponent<ProjectileLauncher>();
-            // sheildAbility = this.GetComponent<SheildAbility>();
+            sheildAbility = this.GetComponent<SheildAbility>();
 
             this.controls = new PlayerControls();
             this.characterInput = this.controls.Character;
@@ -45,13 +45,14 @@ namespace LittleFlighter
             this.characterInput.DashLeft.performed += _ => this.spacecraftController.Dash(-1);
             this.characterInput.Look.performed += ctx => this.calculateMouseLook(ctx.ReadValue<Vector2>());
             this.characterInput.Attack.performed += ctx => this.input_LeftMouse = ctx.ReadValueAsButton();
-            // this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
+            this.characterInput.Shield.performed += ctx => this.input_Space = ctx.ReadValueAsButton();
         }
 
         private void FixedUpdate()
         {
             this.spacecraftController.ReceiveInput(this.input_W, this.mouseLook);
             this.projectileLauncher.ReceiveInput(this.input_LeftMouse);
+            this.sheildAbility.ReceiveInput(this.input_Space);
         }
 
         /// <summary>
