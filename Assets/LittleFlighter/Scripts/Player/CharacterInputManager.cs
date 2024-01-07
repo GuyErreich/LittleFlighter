@@ -6,6 +6,8 @@ namespace LittleFlighter
     public class CharacterInputManager : MonoBehaviour
     {
         [SerializeField] private Texture2D cursor;
+        [SerializeField, Range(0f, 10f)] private float cursorSizeMultiplier = 1f;
+        [SerializeField] private Color cursorColor = Color.green;
         [SerializeField][Range(1, 3)] private float lookSensitivityY = 1, lookSensitivityX = 1;
         [SerializeField] private float deadzone = 0.05f;
         [SerializeField] private Camera cam;
@@ -17,7 +19,8 @@ namespace LittleFlighter
         private PlayerControls.CharacterActions characterInput;
 
         private bool input_W, input_LeftMouse, input_Space, input_Dash;
-        private Vector2 mouseLook;
+        private Vector2 mouseLook, cursorHotspot;
+        private float cursorHeight, cursorWidth;
 
         #region Getters and Setters
         public float LookSensitivityX
@@ -26,12 +29,18 @@ namespace LittleFlighter
         }
         #endregion
 
+        private void Start() {
+            this.cursorWidth = this.cursor.width * this.cursorSizeMultiplier;
+            this.cursorHeight = this.cursor.height * this.cursorSizeMultiplier;
+            this.cursorHotspot = new Vector2(cursorWidth / 2, this.cursorHeight / 2);
+        }
+
         private void Awake()
         {
-            Cursor.SetCursor(this.cursor, new Vector2(this.cursor.width / 2, this.cursor.height / 2),
-                                CursorMode.Auto);
+            // Cursor.SetCursor(this.cursor, cursorHotspot , CursorMode.Auto);
 
             Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
 
             spacecraftController = this.GetComponent<SpacecraftController>();
             projectileLauncher = this.GetComponent<ProjectileLauncher>();
@@ -93,6 +102,17 @@ namespace LittleFlighter
         private void OnDestroy()
         {
             controls.Disable();
+        }
+
+        /// <summary>
+        /// OnGUI is called for rendering and handling GUI events.
+        /// This function can be called multiple times per frame (one call per event).
+        /// </summary>
+        void OnGUI()
+        {
+            GUI.color = cursorColor;
+            GUI.DrawTexture(new Rect(Event.current.mousePosition.x - cursorHotspot.x, Event.current.mousePosition.y - cursorHotspot.y, this.cursorWidth, this.cursorHeight), this.cursor);
+            GUI.color = Color.white;
         }
     }
 }

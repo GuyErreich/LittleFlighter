@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_Engine
   m_Shader: {fileID: -6465566751694194690, guid: fa00a7df05008ce4e92605e2ff021b5d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,6 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -41,7 +44,7 @@ Material:
     - Vector1_8cce75aca05845ae9eca3f9d0ab288a9: -50
     - Vector1_cd30355073f140f495f39de1a06970dc: 6
     - _DisolveScale: 60
-    - _FlameSize: 2.3652675
+    - _FlameSize: 2.5421104
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
@@ -51,7 +54,7 @@ Material:
     - Vector2_ef06fcecc96741b6b5b184c5934f3750: {r: 0, g: 0.51, b: 0, a: 0}
     - _Color01: {r: 0, g: 0.03921569, b: 1, a: 1}
     - _Color02: {r: 0, g: 1, b: 0.9079328, a: 1}
-    - _DisolveSpeed: {r: 0.5, g: -0.67315453, b: 0, a: 0}
+    - _DisolveSpeed: {r: 0.5, g: -0.5552592, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7156842404135885063
 MonoBehaviour:
@@ -65,4 +68,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7

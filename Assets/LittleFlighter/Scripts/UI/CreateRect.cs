@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace LittleFlighter
@@ -5,6 +6,7 @@ namespace LittleFlighter
     public class CreateRect : MonoBehaviour
     {
         [SerializeField] private Texture2D crosshairTex;
+        [SerializeField] private Color color;
         [SerializeField] private int crosshairSize = 45;
         private Vector2 windowSize;
         Rect crosshairRect;
@@ -33,7 +35,9 @@ namespace LittleFlighter
 
         private void OnGUI() 
         {
+            GUI.color = color;
             GUI.DrawTexture(crosshairRect, crosshairTex);
+            GUI.color = Color.white;
         }
     }
 }
