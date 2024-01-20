@@ -35235,6 +35235,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6482082124907830467, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211376536382178130, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7211376537093289926, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
       propertyPath: rateOfFire
       value: 0.075
@@ -35324,6 +35332,14 @@ PrefabInstance:
       value: Spacecraft
       objectReference: {fileID: 0}
     - target: {fileID: 7211376537093289980, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211376537842400791, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212061793419403980, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

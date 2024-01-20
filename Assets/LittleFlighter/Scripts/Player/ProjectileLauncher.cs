@@ -18,7 +18,7 @@ namespace LittleFlighter
 
 
         [Header("Attack Settings")]
-        [SerializeField] private int damage = 5;
+//        [SerializeField] private int damage = 5;
         [SerializeField] private float projectileSpeed;
         [SerializeField, Range(0.001f, 10f)] private float rateOfFire = 0.1f;
 
@@ -33,8 +33,6 @@ namespace LittleFlighter
         // Start is called before the first frame update
         private void Start()
         {
-            
-            
             StartCoroutine(this.Shoot());
         }
 
@@ -43,38 +41,25 @@ namespace LittleFlighter
             while (true)
             {
                 if (isAttack)
-                {       
-                    Transform projectile = Instantiate(this.projectile).transform;
+                {
+                    Transform currentGunPivot = this.isLeft ? this.gunPivotLeft.transform : this.gunPivotRight.transform;
 
-                    projectile.gameObject.tag = "PlayerBullet";
+                    var projectileRef = Instantiate(this.projectile, currentGunPivot.position, currentGunPivot.rotation);
 
-                    if(this.isLeft)
-                    {
-                        projectile.transform.position = this.gunPivotLeft.transform.position;
-                        projectile.transform.rotation = this.gunPivotLeft.transform.rotation;
+                    projectileRef.tag = "PlayerBullet";
 
-                        this.muzzleEffectLeft.Play();
-                        this.shootSoundLeft.Play();
-                    }
+                    this.muzzleEffectRight.Play();
+                    this.shootSoundRight.Play();
 
-                    if(!this.isLeft)
-                    {
-                        projectile.transform.position = this.gunPivotRight.transform.position;
-                        projectile.transform.rotation = this.gunPivotRight.transform.rotation;
-
-                        this.muzzleEffectRight.Play();
-                        this.shootSoundRight.Play();
-                    }
-
-                    Rigidbody projectileRbody = projectile.GetComponent<Rigidbody>();
-                    projectileRbody.velocity = transform.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
+                    Rigidbody rb = projectileRef.GetComponent<Rigidbody>();
+                    rb.velocity = currentGunPivot.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;
 
                     this.isLeft = !this.isLeft;
 
                     yield return new WaitForSeconds(this.rateOfFire);
                 }
 
-                yield return null;
+                yield return new WaitForEndOfFrame();
             }
         }
 

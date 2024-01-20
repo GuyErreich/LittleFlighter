@@ -119,7 +119,7 @@ namespace LittleFlighter.System
 
                     if (enemyHealth <= 0)
                         this.ReturnToQueue(enemy);
-                        // yield return new WaitUntil(() => { this.ReturnToQueue(enemy); return true;});
+//                         yield return new WaitUntil(() => { this.ReturnToQueue(enemy); return true;});
 
                     yield return null;
                 }
