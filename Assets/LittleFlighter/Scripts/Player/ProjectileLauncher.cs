@@ -43,13 +43,15 @@ namespace LittleFlighter
                 if (isAttack)
                 {
                     Transform currentGunPivot = this.isLeft ? this.gunPivotLeft.transform : this.gunPivotRight.transform;
+                    VisualEffect currentVFX = this.isLeft ? this.muzzleEffectLeft : this.muzzleEffectRight;
+                    AudioSource currentAudio = this.isLeft ? this.shootSoundLeft : this.shootSoundRight;
 
                     var projectileRef = Instantiate(this.projectile, currentGunPivot.position, currentGunPivot.rotation);
 
                     projectileRef.tag = "PlayerBullet";
 
-                    this.muzzleEffectRight.Play();
-                    this.shootSoundRight.Play();
+                    currentVFX.Play();
+                    currentAudio.Play();
 
                     Rigidbody rb = projectileRef.GetComponent<Rigidbody>();
                     rb.velocity = currentGunPivot.forward * this.projectileSpeed + this.spaceCraftRbody.velocity;

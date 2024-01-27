@@ -24,7 +24,7 @@ namespace LittleFlighter
         [Header("Events")]
         public UnityEvent<float> OnHealthChanged;
 
-        private bool isTrust = false;
+        private bool isTrust = false, isDashing = false;
         private Vector2 mouseLook;
         private Rigidbody rb;
         private float currentMaxVelocity = 1f;
@@ -64,17 +64,31 @@ namespace LittleFlighter
                 return;
 
             this.rb.AddForce(this.transform.forward * this.forwardThrust, ForceMode.Acceleration);
-
-
         }
 
         public void Dash(float dir)
         {
+            if(isDashing)
+                return;
+
+            isDashing = true;
+
+            CameraController cc = Camera.main.GetComponent<CameraController>();
+
+            this.spaceCraftModel.DOLocalRotate(new Vector3(0, 0, 360 * -dir * 1f) , 0.5f, RotateMode.FastBeyond360)
+            .SetRelative(true)
+            .OnComplete(() => {
+                 isDashing = false;
+            });
+
             this.rb.AddForce(this.transform.right * dir * this.strafeBoost, ForceMode.VelocityChange);
         }
 
         private void Torque()
         {
+            // if(isDashing)
+            //     return;
+
             float verticalAxis = this.mouseLook.y;
             float horizonalAxis = this.mouseLook.x;
 
@@ -82,8 +96,11 @@ namespace LittleFlighter
             this.transform.Rotate(this.transform.up, horizonalAxis, Space.World);
         }
 
-        private void Tilt()
+        private void Tilt(bool isBeyond360 = false)
         {
+            if(isDashing)
+                return;
+
             float horizonalAxis = this.mouseLook.x;
 
             if (this.rb.velocity.x == 0f && this.currentMaxVelocity < this.rb.velocity.magnitude)
@@ -97,7 +114,9 @@ namespace LittleFlighter
 
             Vector3 newRotaion = new Vector3(0, 0, angle);
 
-            this.spaceCraftModel.DOLocalRotate(newRotaion, 30f * Time.fixedDeltaTime, RotateMode.Fast);
+            RotateMode rm = isBeyond360 ? RotateMode.FastBeyond360 : RotateMode.Fast;
+
+            this.spaceCraftModel.DOLocalRotate(newRotaion, 30f * Time.fixedDeltaTime, rm);
         }
 
         private void ControlEngineVFX()

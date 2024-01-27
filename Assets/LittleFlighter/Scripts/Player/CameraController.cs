@@ -8,6 +8,18 @@ public class CameraController : MonoBehaviour
     private Vector3 _positionOffset;
     private Quaternion _rotationOffset;
 
+    public float RotationDamping 
+    {
+        get => rotationDamping;
+        set => rotationDamping = value;
+    }
+
+    public float TransformDamping 
+    {
+        get => transformDamping;
+        set => transformDamping = value;
+    }
+
     private void Awake()
     {
         this._positionOffset = this._followTransform.InverseTransformDirection(this.transform.position - this._followTransform.position);

@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Engine
-  m_Shader: {fileID: -6465566751694194690, guid: fa00a7df05008ce4e92605e2ff021b5d, type: 3}
+  m_Name: Lightning
+  m_Shader: {fileID: -6465566751694194690, guid: 03a50f8e40d0fda4fbeee45d4e344b98, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -23,10 +23,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_5a65fe2a2d1042c8a8b810ddceb529c5:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -41,22 +37,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_8cce75aca05845ae9eca3f9d0ab288a9: -50
-    - Vector1_cd30355073f140f495f39de1a06970dc: 6
-    - _DisolveScale: 60
-    - _FlameSize: 1.9208927
+    - Vector1_972f4374c6da4744b883683d6ffa9fef: 41.15
+    - Vector1_a1cf3794a5c84d58b4ac4eb3ca2e33ea: 0.15
+    - Vector1_d30507b2afd740c88960f39bff9a8bc9: 1.3
+    - Vector1_d5e5fd5001be4360b993311bcce23040: 0.27
+    - _Alpha: 0.192
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_1: {r: 0, g: 1, b: 0.90466136, a: 1}
-    - Color_802a839cd84c466ca110f6eb4acec630: {r: 0, g: 0.039546248, b: 1, a: 1}
-    - Vector2_ccd3c7a2bde94f9f80ba742aa8349ea0: {r: 0.5, g: -1, b: 0, a: 0}
-    - Vector2_ef06fcecc96741b6b5b184c5934f3750: {r: 0, g: 0.51, b: 0, a: 0}
-    - _Color01: {r: 0, g: 0.03921569, b: 1, a: 1}
-    - _Color02: {r: 0, g: 1, b: 0.9079328, a: 1}
-    - _DisolveSpeed: {r: 0.5, g: -0.9694042, b: 0, a: 0}
+    - Color_2f1f5c7469194e438fac68c1cb637f42: {r: 0, g: 0.67264897, b: 0.7490195, a: 1}
+    - Vector2_53540935f7174d39841eb5d285cbcdd0: {r: 1.5, g: 1.8, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &7156842404135885063
+--- !u!114 &4681996856244627143
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

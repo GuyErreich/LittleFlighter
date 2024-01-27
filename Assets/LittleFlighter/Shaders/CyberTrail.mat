@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-684221534627903673
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Engine
-  m_Shader: {fileID: -6465566751694194690, guid: fa00a7df05008ce4e92605e2ff021b5d, type: 3}
+  m_Name: CyberTrail
+  m_Shader: {fileID: -6465566751694194690, guid: ba0c81ab6d841e340bb74fe1704a8734, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,7 +37,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_5a65fe2a2d1042c8a8b810ddceb529c5:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4ae48e2fc4f536a44974850ddf8f96a1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -41,31 +54,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_8cce75aca05845ae9eca3f9d0ab288a9: -50
-    - Vector1_cd30355073f140f495f39de1a06970dc: 6
-    - _DisolveScale: 60
-    - _FlameSize: 1.9208927
+    - Vector1_8cce75aca05845ae9eca3f9d0ab288a9: 145.2
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_1: {r: 0, g: 1, b: 0.90466136, a: 1}
-    - Color_802a839cd84c466ca110f6eb4acec630: {r: 0, g: 0.039546248, b: 1, a: 1}
-    - Vector2_ccd3c7a2bde94f9f80ba742aa8349ea0: {r: 0.5, g: -1, b: 0, a: 0}
-    - Vector2_ef06fcecc96741b6b5b184c5934f3750: {r: 0, g: 0.51, b: 0, a: 0}
-    - _Color01: {r: 0, g: 0.03921569, b: 1, a: 1}
-    - _Color02: {r: 0, g: 1, b: 0.9079328, a: 1}
-    - _DisolveSpeed: {r: 0.5, g: -0.9694042, b: 0, a: 0}
+    - Color_1: {r: 0, g: 0.00851059, b: 1, a: 1}
+    - Color_802a839cd84c466ca110f6eb4acec630: {r: 0, g: 1, b: 0.7590854, a: 1}
+    - Vector2_ccd3c7a2bde94f9f80ba742aa8349ea0: {r: -0.9, g: 0, b: 0, a: 0}
+    - Vector2_ef06fcecc96741b6b5b184c5934f3750: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &7156842404135885063
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
