@@ -4,6 +4,8 @@ using DG.Tweening;
 
 namespace LittleFlighter
 {
+    [RequireComponent(typeof(CharacterInputManager))]
+    [RequireComponent(typeof(CursorsDrawer))]
     public class SpacecraftController : MonoBehaviour
     {
 
@@ -75,7 +77,7 @@ namespace LittleFlighter
 
             CameraController cc = Camera.main.GetComponent<CameraController>();
 
-            this.spaceCraftModel.DOLocalRotate(new Vector3(0, 0, 360 * -dir * 1f) , 0.5f, RotateMode.FastBeyond360)
+            this.spaceCraftModel.DOLocalRotate(new Vector3(0, 0, 720 * -dir) , 0.75f, RotateMode.FastBeyond360)
             .SetRelative(true)
             .OnComplete(() => {
                  isDashing = false;

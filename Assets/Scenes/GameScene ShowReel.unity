@@ -21288,7 +21288,6 @@ GameObject:
   - component: {fileID: 1240865155}
   - component: {fileID: 1240865154}
   - component: {fileID: 1240865153}
-  - component: {fileID: 1240865152}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -21296,21 +21295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1240865152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240865151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c027c9ce46a1c45a4107dde15e0c8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshairTex: {fileID: 2800000, guid: 8cf54a246a703244d83b5bc179591f97, type: 3}
-  color: {r: 0, g: 1, b: 0.10849929, a: 1}
-  crosshairSize: 60
 --- !u!114 &1240865153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35235,6 +35219,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 259759334425400318, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: cursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 3e5a1a1f981a97148ba73c462f3ea78d, type: 3}
+    - target: {fileID: 259759334425400318, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 2800000, guid: ee22b00843604704883a99a364114628, type: 3}
+    - target: {fileID: 259759334425400318, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: centerOfScreen
+      value: 
+      objectReference: {fileID: 2800000, guid: 8cf54a246a703244d83b5bc179591f97, type: 3}
+    - target: {fileID: 259759334425400318, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
+      propertyPath: crosshairDistance
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 6482082124907830467, guid: 6d4d1fdcbce30e841acd0c9a5ce3cc32, type: 3}
       propertyPath: m_IsActive
       value: 1

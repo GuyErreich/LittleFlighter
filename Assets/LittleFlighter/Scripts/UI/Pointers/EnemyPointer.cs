@@ -15,9 +15,6 @@ namespace LittleFlighter.UI
         // Start is called before the first frame update
         private void Awake()
         {
-            // TODO: change this to use the calculate center of screen function
-            this.centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
-
             var rect = this.GetComponent<RectTransform>();
 
             rect.anchoredPosition = new Vector2(0f, 0f);
@@ -29,8 +26,7 @@ namespace LittleFlighter.UI
         // Update is called once per frame
         void LateUpdate()
         {
-            // TODO: create a function the update the center of screen only when the screen size changes
-            // this.CalculateCenterOfScreen();
+            this.centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
 
             this.targetScreenPosition = Camera.main.WorldToScreenPoint(this.Target.transform.position);
 

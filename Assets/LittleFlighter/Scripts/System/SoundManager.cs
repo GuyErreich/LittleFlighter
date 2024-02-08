@@ -21,29 +21,28 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        source = this.GetComponent<AudioSource>();
+
+        globalEffectVolume = Instance.effectVolume;
+        globalMusicVolume = Instance.musicVolume;
+        globalClips = Instance.clips;
+
+        source = Instance.GetComponent<AudioSource>();
         source.volume = globalMusicVolume;
         source.loop = false;
+
+        Instance.OnEffectVolumeChanged.Invoke(globalEffectVolume);
+        Instance.OnMusicVolumeChanged.Invoke(globalMusicVolume);
+        source.volume = globalMusicVolume;
     }
 
     private void Update() {
         print(source.isPlaying);
         if(!source.isPlaying)
         {
-            var index = Random.Range(0, this.clips.Count);
+            var index = Random.Range(0, Instance.clips.Count);
 
-            this.PlaySound(clips[index]);
+            Instance.PlaySound(clips[index]);
         }
-    }
-
-    private void OnValidate() {
-        globalEffectVolume = this.effectVolume;
-        globalMusicVolume = this.musicVolume;
-        globalClips = this.clips;
-
-        this.OnEffectVolumeChanged.Invoke(globalEffectVolume);
-        this.OnMusicVolumeChanged.Invoke(globalMusicVolume);
-        source.volume = globalMusicVolume;
     }
 
     public float MusicVolume
@@ -51,20 +50,20 @@ public class SoundManager : MonoBehaviour
         get { return musicVolume;}
         set 
         {
-            this.musicVolume = value;
-            globalMusicVolume = this.musicVolume; 
+            Instance.musicVolume = value;
+            globalMusicVolume = Instance.musicVolume; 
             source.volume = globalMusicVolume;
-            this.OnMusicVolumeChanged.Invoke(globalMusicVolume);
+            Instance.OnMusicVolumeChanged.Invoke(globalMusicVolume);
         }
     }
 
     public float EffectVolume
     {
-        get { return globalEffectVolume;}
+        get { return globalEffectVolume; }
         set 
         {
-            this.effectVolume = value;
-            globalEffectVolume = this.effectVolume; 
+            Instance.effectVolume = value;
+            globalEffectVolume = Instance.effectVolume; 
             OnEffectVolumeChanged.Invoke(globalEffectVolume);
         }
     }
