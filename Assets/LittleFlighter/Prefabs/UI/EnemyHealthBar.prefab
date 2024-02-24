@@ -142,6 +142,9 @@ MonoBehaviour:
   updateSpeedSeconds: 0.2
   positionOffset: 40
   maxDistanceToScale: 750
+  layers:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &6644173782133391747
 GameObject:
   m_ObjectHideFlags: 0

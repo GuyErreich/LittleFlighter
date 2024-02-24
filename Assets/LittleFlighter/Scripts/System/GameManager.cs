@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
 
             foreach (var canvas in allCanvases)
             {
-                print(canvas.gameObject.name);
                 canvas.gameObject.SetActive(true);
             }
 

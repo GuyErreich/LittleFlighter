@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,9 @@ namespace LittleFlighter.UI
     [RequireComponent(typeof(RectTransform))]
     public class EnemyPointer : MonoBehaviour
     {
-        private Vector3 targetScreenPosition, centerOfScreen;
-        private bool isOnScreen;
+        private Vector2 targetScreenPosition, centerOfScreen;
+        private Vector2 ResolutionScreenSizeRatio;
+        private bool isOnScreen, isBehind, isRight, isAbove;
 
         public GameObject Target { get; set;}
 
@@ -21,63 +23,53 @@ namespace LittleFlighter.UI
             rect.anchorMin = new Vector2(0.5f, 0.5f);
             rect.anchorMax = new Vector2(0.5f, 0.5f);
             rect.pivot = new Vector2(0.5f, 0.5f);
+            // rect.lossyScale.Set(rect.lossyScale.x * ((float)Screen.currentResolution.width / Screen.width), rect.lossyScale.y * ((float)Screen.currentResolution.height / Screen.height), rect.lossyScale.z);
         }
 
         // Update is called once per frame
         void LateUpdate()
         {
-            this.centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
+            this.centerOfScreen = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
             this.targetScreenPosition = Camera.main.WorldToScreenPoint(this.Target.transform.position);
+
+            this.targetScreenPosition -= this.centerOfScreen;
+
+            this.isBehind = Vector3.Dot(Camera.main.transform.forward, (this.Target.transform.position - Camera.main.transform.position).normalized) < 0 ? true : false;
+            
+            if(this.isBehind) this.targetScreenPosition *= -1f;
 
             this.Visibile();
 
             this.Move();
 
             this.Rotate();
-
         }
 
         private void Move()
         {
-            if (this.isOnScreen)
-                return;
+            // Convert target's position to screen space
+            var dir = (CalculateResolutionScreenRatio(this.targetScreenPosition) - Vector2.zero).normalized;
 
-            var position = this.targetScreenPosition;
-            
-            if (position.z < 0f)
-                position *= -1;
+            var distance = Mathf.Max(this.centerOfScreen.x, this.centerOfScreen.y);
 
-            position -= this.centerOfScreen;
+            var point = dir * 100;
 
-            float border = 50f;
+            var border = 50f;
 
-            if (position.x <= -this.centerOfScreen.x)
-                position.x = -this.centerOfScreen.x + border;
+            point.x = Mathf.Clamp(point.x, -this.centerOfScreen.x + border, this.centerOfScreen.x - border);
+            point.y = Mathf.Clamp(point.y, -this.centerOfScreen.y + border, this.centerOfScreen.y - border);
 
-            if (position.x >= this.centerOfScreen.x)
-                position.x = this.centerOfScreen.x - border;
-
-            if (position.y <= -this.centerOfScreen.y)
-                position.y = -this.centerOfScreen.y + border;
-
-            if (position.y >= this.centerOfScreen.y)
-                position.y = this.centerOfScreen.y - border;
-
-            this.transform.localPosition = position;
+            // this.transform.localPosition = point;
+            this.GetComponent<RectTransform>().anchoredPosition = point;
         }
 
         private void Rotate()
         {
             if (this.isOnScreen)
                 return;
-
-            var targetPosition = this.targetScreenPosition;
-
-            if (targetPosition.z < 0f)
-                    targetPosition *= -1;
-
-            Vector2 dir = (targetPosition - this.centerOfScreen);
+       
+            Vector2 dir = (this.targetScreenPosition - Vector2.zero).normalized;
 
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
 
@@ -86,13 +78,25 @@ namespace LittleFlighter.UI
 
         private void Visibile() 
         {
-            this.isOnScreen = this.targetScreenPosition.x >= 0f &&
-                                this.targetScreenPosition.x <= Screen.width &&
-                                this.targetScreenPosition.y >= 0f &&
-                                this.targetScreenPosition.y <= Screen.height &&
-                                this.targetScreenPosition.z > 0f;
+
+            this.isOnScreen = -this.centerOfScreen.x <= this.targetScreenPosition.x && 
+                                this.targetScreenPosition.x <= this.centerOfScreen.x &&
+                                -this.centerOfScreen.y <= this.targetScreenPosition.y &&
+                                this.targetScreenPosition.y <= this.centerOfScreen.y &&
+                                !isBehind;
 
             this.GetComponent<CanvasGroup>().alpha = this.isOnScreen ? 0 : 1;
+        }
+
+        private Vector2 CalculateResolutionScreenRatio(Vector2 screenPosition) 
+        {
+            var widthRatio = (float)Screen.currentResolution.width / Screen.width;
+            var heightRatio = (float)Screen.currentResolution.height / Screen.height;
+
+            screenPosition.x *= widthRatio;
+            screenPosition.y *= heightRatio;
+
+            return screenPosition;
         }
     }
 }

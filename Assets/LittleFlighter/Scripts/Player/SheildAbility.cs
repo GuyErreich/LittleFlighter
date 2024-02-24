@@ -6,7 +6,7 @@ namespace LittleFlighter
     public class SheildAbility : MonoBehaviour
     {
         [SerializeField] private VisualEffect vfxEffect;
-        [SerializeField] private new Collider collider;
+        [SerializeField] private Collider collider;
         private bool isSheild = false;
 
         private void Start() {

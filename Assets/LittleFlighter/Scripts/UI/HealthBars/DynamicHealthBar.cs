@@ -18,6 +18,9 @@ namespace LittleFlighter.UI.HealthBars
         [SerializeField] private float positionOffset = 2f;
         [SerializeField] private float maxDistanceToScale = 30000;
 
+        [Header("LineOfSightCheck")]
+        [SerializeField] private LayerMask layers;
+
         private Vector3 targetScreenPosition, maxScale;
         private bool isOnScreen;
 
@@ -59,7 +62,7 @@ namespace LittleFlighter.UI.HealthBars
             foregroundImage.fillAmount = percentage;
         }
 
-        private void LateUpdate()
+        private void Update()
         {
             this.transform.position = Camera.main.WorldToScreenPoint(this.Target.transform.position + Camera.main.transform.up * 
                                                                     (this.positionOffset + (this.positionOffset * this.GetDistancePercentage())));
@@ -92,12 +95,25 @@ namespace LittleFlighter.UI.HealthBars
 
         private void Visibile(Vector3 screenPosition)
         {
-
             this.isOnScreen = screenPosition.x >= 0 && screenPosition.x <= Screen.width &&
                             screenPosition.y >= 0 && screenPosition.y <= Screen.height &&
                             screenPosition.z > 0;
+        
+            bool isInDirectLineOfSight = false;
 
-            this.GetComponent<CanvasGroup>().alpha = this.isOnScreen ? 1 : 0;
+            if(isOnScreen) {
+                var dir =  (this.Target.transform.position - Camera.main.transform.position).normalized;
+
+                RaycastHit hit;
+
+                if (Physics.Raycast(Camera.main.transform.position, dir, out hit, Mathf.Infinity, layers, QueryTriggerInteraction.Ignore)) {
+                    Debug.DrawRay(Camera.main.transform.position, dir * hit.distance, Color.yellow);
+                    isInDirectLineOfSight = hit.transform == this.Target.transform;
+                }
+            }
+
+
+            this.GetComponent<CanvasGroup>().alpha = this.isOnScreen && isInDirectLineOfSight ? 1 : 0;
         }
     }
 }

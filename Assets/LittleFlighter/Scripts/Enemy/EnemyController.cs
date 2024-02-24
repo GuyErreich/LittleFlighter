@@ -24,7 +24,6 @@ namespace LittleFlighter.Enemy
 
         [Header("Attack Settings")]
         [SerializeField, ListToPopup(typeof(EnemyController), "shootTypes")] private string type;
-        [SerializeField] private int damage = 5;
         [SerializeField] private float projectileSpeed = 2f;
         [SerializeField] private float rateOfFire = 2f;
 

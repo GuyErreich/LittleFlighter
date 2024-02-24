@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1707500247834431990}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GunPivot
   m_TagString: NoCollision
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2500561171642208302}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemyGFX
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 7609639665423526859}
   - component: {fileID: 7609639665423526858}
   - component: {fileID: 1707500248046072729}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 7609639666379552524}
   - component: {fileID: 7609639666379552515}
   - component: {fileID: 1707500247625338983}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cannon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 2005900685329918407}
   - component: {fileID: 707149660957321181}
   - component: {fileID: 3348296993954143605}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: default
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8887007734173082982}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BAKE
   m_TagString: Enemy
   m_Icon: {fileID: 0}
